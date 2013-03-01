@@ -1,3 +1,35 @@
+/**
+ * Boids
+ * Simulation of autonomous agent behaviors in 2D, 3D.
+ * Based on code by Craig Reynolds, Daniel Shiffman. 
+ * Besides Cohesion, Separation, Alignment, adds multiple 
+ * force points creating interesting targets in the simulation.
+ * http://s373.net/code/boids
+ *
+ * Copyright (C) 2007-2013 Andre Sier http://s373.net
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA  02111-1307  USA
+ * 
+ * @author      Andre Sier 
+ * @modified    20130225
+ * @version     0.0.7a
+ * @url			http://s373.net/code/boids
+ */
+
+
 #pragma once
 
 #include "ofMain.h"
@@ -29,7 +61,7 @@ public:
 	Flock2d(){
 		clear();
 		separate = align = cohesion = distSeparation = distAlign = distCohesion = maxTurn =
-		maxSpeed, maxForce, minX, maxX, maxY, boundsWidth, boundsHeight = 0;
+		maxSpeed = maxForce = minX = maxX = maxY = boundsWidth = boundsHeight = 0;
 		boundmode = 0;
 		dt = 1.0f;
 		attraction = attractiondeviation = 0.0f;
@@ -37,14 +69,24 @@ public:
 	
 	
 	void clear(){
+		clearBoids();
+		clearAttrPts();
+	}
+	
+	void clearBoids(){
 		while(boids.size()>0){
 			delete boids[0];
 			boids.erase(boids.begin());
 		}
+		
+	}
+	
+	void clearAttrPts(){
 		while(attractionPoints.size()>0){
 			delete attractionPoints[0];
 			attractionPoints.erase(attractionPoints.begin());
 		}
+		
 	}
 	
 	
@@ -58,8 +100,6 @@ public:
 	}
 
 	void init(int num, float lx, float ly, float dev) {
-//		boids = new ArrayList<Boid2d>();
-//		attractionPoints = new ArrayList<AttractionPoint2d>();
 
 		for (int i = 0; i < num; i++) {
 			Boid2d * b = new Boid2d(this);
@@ -350,7 +390,13 @@ public:
 			boids.erase(boids.begin());
 		}
 	}
-
+	void removeLastBoid(){
+		if(boids.size()>0){
+			delete boids[boids.size()-1];
+			boids.erase(boids.end()-1);
+		}
+	}
+	
 	
 	void removeBoid(int idx){
 		if(boids.size()>idx){

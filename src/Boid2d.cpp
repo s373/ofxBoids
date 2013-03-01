@@ -14,7 +14,9 @@
 
 
 Boid2d::Boid2d(Flock2d * flock) {
+		Boid2d();
 	this->flockPtr = flock;
+	
 }
 
 

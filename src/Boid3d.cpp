@@ -15,6 +15,7 @@
 
 
 Boid3d::Boid3d(Flock3d * flock) {
+	Boid3d();
 	this->flockPtr = flock;
 }
 
