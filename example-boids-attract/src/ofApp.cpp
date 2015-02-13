@@ -5,20 +5,21 @@ void ofApp::setup(){
 
 	ofEnableAlphaBlending();
 
+	// make attrPts
+	for(int i=0; i<10; i++) {   
+	     float x = ofRandom(ofGetWidth());
+	     float y = ofRandom(ofGetHeight());
+	     float force = ofRandom(-250,250);
+	     float dist = ofRandom(100,200); 
+	     flock.addAttractionPoint(x,y,force,dist);
+	  }
+
 	// num, center x, center y, dev
 	flock.setup(250, ofGetWidth()/2, ofGetHeight()/2, ofGetWidth()/4 );
 
 	flock.setBounds(0,0,ofGetWidth(), ofGetHeight());
 	flock.setBoundmode(1);
 
-	// make attrPts
-	for(int i=0; i<10; i++) {   
-	     float x = ofRandom(ofGetWidth());
-	     float y = ofRandom(ofGetHeight());
-	     float force = ofRandom (-125,125);
-	     float dist = ofRandom(100,200); 
-	     flock.addAttractionPoint(x,y,force,dist);
-	  }
 }
 
 //--------------------------------------------------------------
@@ -38,9 +39,9 @@ void ofApp::draw(){
 	  
 	for(int i=0; i<flock.attractionPoints.size(); i++){   
 	    AttractionPoint2d * ap = flock.attractionPoints[i];            
-	    ofSetColor( ap->force > 0 ? attrColor : repelColor, 100);
-	    ofRect(ap->x, ap->y, ap->sensorDist, ap->sensorDist);
-	    ofRect(ap->x, ap->y, 5, 5);    
+	    ofSetColor( ap->force > 0 ? attrColor : repelColor, ofMap(ABS(ap->force), 0, 250, 10, 200));
+	    ofRect(ap->x -ap->sensorDist/2, ap->y -ap->sensorDist/2, ap->sensorDist, ap->sensorDist);
+	    ofRect(ap->x-2, ap->y-2, 5, 5);    
 	  }
 
 
