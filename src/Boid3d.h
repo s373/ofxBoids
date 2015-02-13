@@ -1,18 +1,8 @@
 /*
  *  Boid3d.h
- *  flockHelloBoidsAttr
  *
  *  Created by andré sier on 20130225.
- *  Copyright 2013 __MyCompanyName__. All rights reserved.
- *
- */
-
-/*
- *  Boid3d.h
- *  flockTextParts
- *
- *  Created by andré sier on 20130225.
- *  Copyright 2013 __MyCompanyName__. All rights reserved.
+ *  Copyright 2013 s373.net/x. All rights reserved.
  *
  */
 
